@@ -1,0 +1,94 @@
+# BMFM-NVP Metabolomics Pretraining Configuration
+# This is the WORKING version that achieved 78.5M params and val_loss=24.10
+
+defaults:
+  - data_module: base_language_modeling
+  - tokenizer: all_genes
+  - fields: genes_expressions_masked
+  - trainer: default
+  - task: train
+  - model: scbert
+  - _self_
+
+seed:
+  seed_value: 1234
+
+# ONLY NEW ADDITION: ClearML tracking
+track_clearml:
+  project_name: bmfm-targets
+  task_name: wced.multitask.v2
+  continue_last_task: false
+
+# Model configuration - REDUCED SIZE
+model:
+  checkpoint: null
+  num_hidden_layers: 8  # This gave us 78.5M params
+
+# Tokenizer points to metabolite vocabulary
+tokenizer:
+  identifier: /path/to/bmfm-metabolomics/vocab/all_genes_vocab
+
+# Trainer configuration
+trainer:
+  warmup_steps: 100
+  weight_decay: 0.01
+  learning_rate: 1.0e-4  # Original learning rate for batch_size=1
+  betas:
+    - 0.9
+    - 0.99
+  epsilon: 1.0e-8
+  lr_decay_steps: null
+
+  losses:
+    - field_name: expressions
+      name: mse
+      ignore_zero: true
+
+# Data module configuration
+data_module:
+  max_length: 4096
+  data_dir: /path/to/bmfm-metabolomics/data/merged
+  processed_name: metabolomics_training_processed
+  batch_size: 1  # KEEPING ORIGINAL - proven to work
+  limit_genes: tokenizer
+  collation_strategy: language_modeling
+  num_workers: 0
+  sequence_order: sorted
+
+  # Data transformation pipeline
+  transform_datasets: true
+  
+  transform_kwargs:
+    source_h5ad_file_name: /path/to/bmfm-metabolomics/data/merged/metabolomics_training.h5ad
+    processed_h5ad_file_name: /path/to/bmfm-metabolomics/data/merged/metabolomics_training_processed.h5ad
+    
+    transforms:
+      - transform_name: LogTransform
+        transform_args:
+          base: 2
+          chunk_size: null
+          chunked: null
+      
+      - transform_name: BinTransform
+        transform_args:
+          num_bins: 50
+          binning_method: int_cast
+
+# Training configuration
+working_dir: /path/to/bmfm-metabolomics/outputs
+accelerator: mps
+devices: 1
+val_check_interval: 0.25
+max_epochs: 50
+checkpoints_every_n_train_steps: 1000
+
+# Logging
+log_every_n_steps: 10
+# Batch composition logging (turn on/off by commenting out)
+
+
+# Task-level callback configuration
+task:
+  callbacks:
+    - _target_: bmfm_targets.callbacks.batch_stats_logger.BatchStatsLogger
+      log_every_n_batches: 10

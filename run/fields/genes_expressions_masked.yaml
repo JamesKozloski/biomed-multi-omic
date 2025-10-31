@@ -2,8 +2,13 @@
   field_name: "genes"
   pretrained_embedding: null
   is_masked: true
+  decode_modes:
+    - regression
+    - is_zero
 - _target_: bmfm_targets.config.FieldInfo
   field_name: "expressions"
   pretrained_embedding: null
   is_masked: true
   vocab_update_strategy: dynamic
+  decode_modes:
+    - regression
