@@ -135,3 +135,10 @@ bmfm_targets/tests/resources/pretrain/cellxgene/processed.h5ad
 prof/
 bmfm_targets/tests/resources/pretrain/hic/litdata/
 bmfm_targets/tests/resources/pretrain/hic/parquet/
+
+# Metabolomics data and cache directories
+examples/metabolomics/bmfm_metabolomics_vocab/
+examples/metabolomics/data/
+examples/metabolomics/h5ad_data_batch/
+examples/metabolomics/hmdb_cache/
+examples/metabolomics/metabolights_cache/
