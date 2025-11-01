@@ -1,3 +1,4 @@
+from typing import List, Dict, Optional
 # BMFM-RNA Compatible Metabolite Vocabulary Saver
 # Mirrors BMFM-RNA vocabulary format exactly
 
