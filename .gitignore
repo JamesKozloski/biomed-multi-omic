@@ -142,3 +142,12 @@ examples/metabolomics/data/
 examples/metabolomics/h5ad_data_batch/
 examples/metabolomics/hmdb_cache/
 examples/metabolomics/metabolights_cache/
+
+# Metabolomics data and cache directories
+examples/metabolomics/bmfm_metabolomics_vocab/
+examples/metabolomics/data/
+examples/metabolomics/h5ad_data_batch/
+examples/metabolomics/hmdb_cache/
+examples/metabolomics/metabolights_cache/
+examples/metabolomics/distributed/profiling_results/
+examples/metabolomics/distributed/checkpoints/
