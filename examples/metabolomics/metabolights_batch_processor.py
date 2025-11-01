@@ -32,7 +32,7 @@ class MetaboLightsBatchProcessor:
     
     def __init__(
         self, 
-        vocab_dir: str = "./bmfm_metabolomics_vocab_10k",
+        vocab_dir: str = "./bmfm_metabolomics_vocab",
         output_dir: str = "./h5ad_data_batch",
         cache_dir: str = "./metabolights_cache",
         data_dir: str = "./data"
