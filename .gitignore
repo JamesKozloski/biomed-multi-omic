@@ -151,3 +151,16 @@ examples/metabolomics/hmdb_cache/
 examples/metabolomics/metabolights_cache/
 examples/metabolomics/distributed/profiling_results/
 examples/metabolomics/distributed/checkpoints/
+
+# Metabolomics data and artifacts (large files, regenerated)
+examples/metabolomics/bmfm_metabolomics_vocab/
+examples/metabolomics/all_genes_vocab/
+examples/metabolomics/hmdb_cache/
+examples/metabolomics/metabolights_cache/
+examples/metabolomics/h5ad_data_batch/
+examples/metabolomics/data/
+examples/metabolomics/outputs/
+examples/metabolomics/checkpoints/
+examples/metabolomics/distributed/profiling_results/
+examples/metabolomics/distributed/checkpoints/
+examples/metabolomics/__pycache__/
